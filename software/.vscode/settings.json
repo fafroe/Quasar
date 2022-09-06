@@ -1,0 +1,27 @@
+{
+    "files.associations": {
+        "arv.h": "c",
+        "arvtypes.h": "c",
+        "arvenums.h": "c",
+        "glib-object.h": "c",
+        "gbinding.h": "c",
+        "glib.h": "c",
+        "galloca.h": "c",
+        "gtypes.h": "c",
+        "arvbuffer.h": "c",
+        "arvcamera.h": "c",
+        "arvchunkparser.h": "c",
+        "arvdevice.h": "c",
+        "arvdebug.h": "c",
+        "arvgcboolean.h": "c",
+        "arvgc.h": "c",
+        "arvgccommand.h": "c",
+        "arvgcmaskedintregnode.h": "c",
+        "arvgcnode.h": "c",
+        "arvgcinvalidatornode.h": "c",
+        "arvgcintegernode.h": "c",
+        "arvgcinteger.h": "c",
+        "arvgcswissknifenode.h": "c",
+        "arvmisc.h": "c"
+    }
+}
