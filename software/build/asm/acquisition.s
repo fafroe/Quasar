@@ -115,110 +115,223 @@ ARV_IS_CAMERA:
 	.cfi_endproc
 .LFE1138:
 	.size	ARV_IS_CAMERA, .-ARV_IS_CAMERA
-	.section	.rodata
-.LC0:
-	.string	"%X"
-	.text
-	.type	U8toHexChar, @function
-U8toHexChar:
-.LFB1824:
-	.file 3 "src/acquisition.c"
-	.loc 3 17 1 is_stmt 1
-	.cfi_startproc
-	pushq	%rbp
-	.cfi_def_cfa_offset 16
-	.cfi_offset 6, -16
-	movq	%rsp, %rbp
-	.cfi_def_cfa_register 6
-	subq	$32, %rsp
-	movl	%edi, %eax
-	movb	%al, -20(%rbp)
-	.loc 3 18 7
-	movb	$0, -1(%rbp)
-	.loc 3 19 2
-	movsbl	-20(%rbp), %edx
-	leaq	-1(%rbp), %rax
-	leaq	.LC0(%rip), %rsi
-	movq	%rax, %rdi
-	movl	$0, %eax
-	call	sprintf@PLT
-	.loc 3 20 17
-	movzbl	-1(%rbp), %eax
-	.loc 3 21 1
-	leave
-	.cfi_def_cfa 7, 8
-	ret
-	.cfi_endproc
-.LFE1824:
-	.size	U8toHexChar, .-U8toHexChar
 	.type	ConvertToHexArray, @function
 ConvertToHexArray:
-.LFB1825:
-	.loc 3 24 1
+.LFB1824:
+	.file 3 "src/acquisition.c"
+	.loc 3 16 100 is_stmt 1
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
 	.cfi_offset 6, -16
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
-	pushq	%rbx
-	subq	$56, %rsp
-	.cfi_offset 3, -24
 	movq	%rdi, -40(%rbp)
 	movq	%rsi, -48(%rbp)
 	movl	%edx, -52(%rbp)
-	.loc 3 25 6
-	movl	$0, -20(%rbp)
-	.loc 3 27 7
-	jmp	.L14
-.L15:
-	.loc 3 29 40
-	movl	-20(%rbp), %eax
+	.loc 3 17 6
+	movl	$0, -4(%rbp)
+	.loc 3 18 6
+	movl	$0, -8(%rbp)
+	.loc 3 19 13
+	movabsq	$3978425819141910832, %rax
+	movabsq	$5063528411713059128, %rdx
+	movq	%rax, -32(%rbp)
+	movq	%rdx, -24(%rbp)
+	.loc 3 21 7
+	jmp	.L12
+.L14:
+	.loc 3 23 45
+	movl	-4(%rbp), %eax
 	movslq	%eax, %rdx
 	movq	-48(%rbp), %rax
 	addq	%rdx, %rax
 	movzbl	(%rax), %eax
-	.loc 3 29 19
+	.loc 3 23 49
+	sarb	$4, %al
 	movsbl	%al, %eax
-	.loc 3 29 13
-	movl	-20(%rbp), %edx
+	.loc 3 23 13
+	movl	-8(%rbp), %edx
 	movslq	%edx, %rcx
 	movq	-40(%rbp), %rdx
-	leaq	(%rcx,%rdx), %rbx
-	.loc 3 29 19
-	movl	%eax, %edi
-	call	U8toHexChar
-	.loc 3 29 17
-	movb	%al, (%rbx)
-	.loc 3 32 4
-	addl	$1, -20(%rbp)
-.L14:
-	.loc 3 27 7
-	movl	-20(%rbp), %eax
+	addq	%rcx, %rdx
+	.loc 3 23 35
+	cltq
+	movzbl	-32(%rbp,%rax), %eax
+	.loc 3 23 19
+	movb	%al, (%rdx)
+	.loc 3 24 45
+	movl	-4(%rbp), %eax
+	movslq	%eax, %rdx
+	movq	-48(%rbp), %rax
+	addq	%rdx, %rax
+	movzbl	(%rax), %eax
+	.loc 3 24 49
+	movsbl	%al, %eax
+	andl	$15, %eax
+	movl	%eax, %ecx
+	.loc 3 24 13
+	movl	-8(%rbp), %eax
+	cltq
+	leaq	1(%rax), %rdx
+	movq	-40(%rbp), %rax
+	addq	%rax, %rdx
+	.loc 3 24 35
+	movslq	%ecx, %rax
+	movzbl	-32(%rbp,%rax), %eax
+	.loc 3 24 19
+	movb	%al, (%rdx)
+	.loc 3 25 13
+	movl	-8(%rbp), %eax
+	cltq
+	leaq	2(%rax), %rdx
+	movq	-40(%rbp), %rax
+	addq	%rdx, %rax
+	.loc 3 25 19
+	movb	$32, (%rax)
+	.loc 3 26 8
+	movl	-4(%rbp), %eax
+	movslq	%eax, %rdx
+	imulq	$274877907, %rdx, %rdx
+	shrq	$32, %rdx
+	sarl	$3, %edx
+	movl	%eax, %ecx
+	sarl	$31, %ecx
+	subl	%ecx, %edx
+	imull	$125, %edx, %ecx
+	subl	%ecx, %eax
+	movl	%eax, %edx
+	.loc 3 26 5
+	cmpl	$1, %edx
+	jne	.L13
+	.loc 3 26 30 discriminator 1
+	movl	-8(%rbp), %eax
+	cltq
+	leaq	2(%rax), %rdx
+	movq	-40(%rbp), %rax
+	addq	%rdx, %rax
+	.loc 3 26 36 discriminator 1
+	movb	$10, (%rax)
+.L13:
+	.loc 3 27 4
+	addl	$1, -4(%rbp)
+	.loc 3 28 5
+	addl	$3, -8(%rbp)
+.L12:
+	.loc 3 21 7
+	movl	-4(%rbp), %eax
 	cmpl	-52(%rbp), %eax
-	jl	.L15
-	.loc 3 35 9
-	movl	-20(%rbp), %eax
-	.loc 3 36 1
-	movq	-8(%rbp), %rbx
-	leave
+	jl	.L14
+	.loc 3 31 9
+	movl	-4(%rbp), %eax
+	.loc 3 32 1
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE1824:
+	.size	ConvertToHexArray, .-ConvertToHexArray
+	.type	ConvertToAsciGreyScale, @function
+ConvertToAsciGreyScale:
+.LFB1825:
+	.loc 3 35 1
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movq	%rdi, -40(%rbp)
+	movq	%rsi, -48(%rbp)
+	movl	%edx, -52(%rbp)
+	.loc 3 36 6
+	movl	$0, -4(%rbp)
+	.loc 3 37 6
+	movl	$0, -8(%rbp)
+	.loc 3 38 13
+	movabsq	$4625319044213190176, %rax
+	movq	%rax, -17(%rbp)
+	movb	$35, -9(%rbp)
+	.loc 3 41 7
+	jmp	.L17
+.L19:
+	.loc 3 43 40
+	movl	-4(%rbp), %eax
+	movslq	%eax, %rdx
+	movq	-48(%rbp), %rax
+	addq	%rdx, %rax
+	movzbl	(%rax), %eax
+	.loc 3 43 43
+	leal	31(%rax), %edx
+	testb	%al, %al
+	cmovs	%edx, %eax
+	sarb	$5, %al
+	movsbl	%al, %eax
+	.loc 3 43 13
+	movl	-8(%rbp), %edx
+	movslq	%edx, %rcx
+	movq	-40(%rbp), %rdx
+	addq	%rcx, %rdx
+	.loc 3 43 30
+	cltq
+	movzbl	-17(%rbp,%rax), %eax
+	.loc 3 43 17
+	movb	%al, (%rdx)
+	.loc 3 44 8
+	movl	-4(%rbp), %eax
+	movslq	%eax, %rdx
+	imulq	$274877907, %rdx, %rdx
+	shrq	$32, %rdx
+	sarl	$3, %edx
+	movl	%eax, %ecx
+	sarl	$31, %ecx
+	subl	%ecx, %edx
+	imull	$125, %edx, %ecx
+	subl	%ecx, %eax
+	movl	%eax, %edx
+	.loc 3 44 5
+	cmpl	$1, %edx
+	jne	.L18
+	.loc 3 46 5
+	addl	$1, -8(%rbp)
+	.loc 3 47 14
+	movl	-8(%rbp), %eax
+	movslq	%eax, %rdx
+	movq	-40(%rbp), %rax
+	addq	%rdx, %rax
+	.loc 3 47 18
+	movb	$10, (%rax)
+.L18:
+	.loc 3 49 4
+	addl	$1, -4(%rbp)
+	.loc 3 50 4
+	addl	$1, -8(%rbp)
+.L17:
+	.loc 3 41 7
+	movl	-4(%rbp), %eax
+	cmpl	-52(%rbp), %eax
+	jl	.L19
+	.loc 3 53 9
+	movl	-4(%rbp), %eax
+	.loc 3 54 1
+	popq	%rbp
 	.cfi_def_cfa 7, 8
 	ret
 	.cfi_endproc
 .LFE1825:
-	.size	ConvertToHexArray, .-ConvertToHexArray
+	.size	ConvertToAsciGreyScale, .-ConvertToAsciGreyScale
 	.section	.rodata
-.LC1:
+.LC0:
 	.string	"Acquired %d\303\227%d buffer\n"
-.LC2:
+.LC1:
 	.string	"out/frame_%i.txt"
-.LC3:
+.LC2:
 	.string	"w"
 	.text
 	.type	ACQ_NewFrame_CB, @function
 ACQ_NewFrame_CB:
 .LFB1826:
-	.loc 3 40 1
+	.loc 3 58 1
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -226,26 +339,26 @@ ACQ_NewFrame_CB:
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
 	pushq	%rbx
-	subq	$15736, %rsp
+	subq	$15864, %rsp
 	.cfi_offset 3, -24
-	movq	%rdi, -15736(%rbp)
-	movq	%rsi, -15744(%rbp)
-	.loc 3 44 12
-	movq	-15744(%rbp), %rax
+	movq	%rdi, -15864(%rbp)
+	movq	%rsi, -15872(%rbp)
+	.loc 3 62 12
+	movq	-15872(%rbp), %rax
 	movq	%rax, -24(%rbp)
-	.loc 3 52 11
-	movq	-15736(%rbp), %rax
+	.loc 3 70 11
+	movq	-15864(%rbp), %rax
 	movq	%rax, %rdi
 	call	arv_stream_pop_buffer@PLT
 	movq	%rax, -32(%rbp)
-	.loc 3 53 18
-	leaq	-52(%rbp), %rdx
+	.loc 3 71 25
+	leaq	-56(%rbp), %rdx
 	movq	-32(%rbp), %rax
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	arv_buffer_get_data@PLT
 	movq	%rax, -40(%rbp)
-	.loc 3 56 2
+	.loc 3 74 2
 	movq	-32(%rbp), %rax
 	movq	%rax, %rdi
 	call	arv_buffer_get_image_height@PLT
@@ -255,60 +368,69 @@ ACQ_NewFrame_CB:
 	call	arv_buffer_get_image_width@PLT
 	movl	%ebx, %edx
 	movl	%eax, %esi
-	leaq	.LC1(%rip), %rdi
+	leaq	.LC0(%rip), %rdi
 	movl	$0, %eax
 	call	printf@PLT
-	.loc 3 60 2
+	.loc 3 78 2
 	movq	-24(%rbp), %rax
 	movl	8(%rax), %edx
 	leaq	-96(%rbp), %rax
-	leaq	.LC2(%rip), %rsi
+	leaq	.LC1(%rip), %rsi
 	movq	%rax, %rdi
 	movl	$0, %eax
 	call	sprintf@PLT
-	.loc 3 61 7
+	.loc 3 79 7
 	leaq	-96(%rbp), %rax
-	leaq	.LC3(%rip), %rsi
+	leaq	.LC2(%rip), %rsi
 	movq	%rax, %rdi
 	call	fopen@PLT
 	movq	%rax, -48(%rbp)
-	.loc 3 64 2
-	movl	-52(%rbp), %edx
+	.loc 3 83 2
+	movq	-56(%rbp), %rax
+	movl	%eax, %edx
 	movq	-40(%rbp), %rcx
-	leaq	-15728(%rbp), %rax
+	leaq	-15856(%rbp), %rax
 	movq	%rcx, %rsi
 	movq	%rax, %rdi
-	call	ConvertToHexArray
-	.loc 3 66 2
+	call	ConvertToAsciGreyScale
+	.loc 3 84 2
+	movq	-48(%rbp), %rdx
+	leaq	-15856(%rbp), %rax
+	movq	%rdx, %rcx
+	movl	$15625, %edx
+	movl	$1, %esi
+	movq	%rax, %rdi
+	call	fwrite@PLT
+	.loc 3 85 2
 	movq	-48(%rbp), %rax
 	movq	%rax, %rdi
 	call	fclose@PLT
-	.loc 3 69 2
+	.loc 3 88 2
 	movq	-32(%rbp), %rdx
-	movq	-15736(%rbp), %rax
+	movq	-15864(%rbp), %rax
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	arv_stream_push_buffer@PLT
-	.loc 3 71 10
+	.loc 3 90 10
 	movq	-24(%rbp), %rax
 	movl	8(%rax), %eax
-	.loc 3 71 19
+	.loc 3 90 19
 	leal	1(%rax), %edx
 	movq	-24(%rbp), %rax
 	movl	%edx, 8(%rax)
-	.loc 3 73 14
+	.loc 3 92 14
 	movq	-24(%rbp), %rax
 	movl	8(%rax), %eax
-	.loc 3 73 5
+	.loc 3 92 5
 	cmpl	$3, %eax
-	jne	.L19
-	.loc 3 74 3
+	jne	.L23
+	.loc 3 93 3
 	movq	-24(%rbp), %rax
 	movq	(%rax), %rax
 	movq	%rax, %rdi
 	call	g_main_loop_quit@PLT
-.L19:
-	.loc 3 75 1
+.L23:
+	.loc 3 94 1
 	nop
 	movq	-8(%rbp), %rbx
 	leave
@@ -318,18 +440,18 @@ ACQ_NewFrame_CB:
 .LFE1826:
 	.size	ACQ_NewFrame_CB, .-ACQ_NewFrame_CB
 	.section	.rodata
-.LC4:
+.LC3:
 	.string	"Error: %s\n"
-.LC5:
+.LC4:
 	.string	"Found camera '%s'\n"
-.LC8:
+.LC7:
 	.string	"new-buffer"
 	.text
 	.globl	ACQ_Init_stream
 	.type	ACQ_Init_stream, @function
 ACQ_Init_stream:
 .LFB1827:
-	.loc 3 79 1
+	.loc 3 98 1
 	.cfi_startproc
 	pushq	%rbp
 	.cfi_def_cfa_offset 16
@@ -337,57 +459,57 @@ ACQ_Init_stream:
 	movq	%rsp, %rbp
 	.cfi_def_cfa_register 6
 	subq	$96, %rsp
-	.loc 3 80 10
+	.loc 3 99 10
 	movq	$0, -64(%rbp)
-	.loc 3 86 11
+	.loc 3 105 11
 	leaq	-64(%rbp), %rax
 	movq	%rax, %rsi
 	movl	$0, %edi
 	call	arv_camera_new@PLT
 	movq	%rax, -16(%rbp)
-	.loc 3 87 6
+	.loc 3 106 6
 	movq	-16(%rbp), %rax
 	movq	%rax, %rdi
 	call	ARV_IS_CAMERA
-	.loc 3 87 4
+	.loc 3 106 4
 	testl	%eax, %eax
-	jne	.L21
-	.loc 3 88 30
+	jne	.L25
+	.loc 3 107 30
 	movq	-64(%rbp), %rax
-	.loc 3 88 3
+	.loc 3 107 3
 	movq	8(%rax), %rax
 	movq	%rax, %rsi
-	leaq	.LC4(%rip), %rdi
+	leaq	.LC3(%rip), %rdi
 	movl	$0, %eax
 	call	printf@PLT
-	.loc 3 89 10
+	.loc 3 108 10
 	movl	$1, %eax
-	jmp	.L32
-.L21:
-	.loc 3 91 2
+	jmp	.L36
+.L25:
+	.loc 3 110 2
 	movq	-16(%rbp), %rax
 	movl	$0, %esi
 	movq	%rax, %rdi
 	call	arv_camera_get_model_name@PLT
 	movq	%rax, %rsi
-	leaq	.LC5(%rip), %rdi
+	leaq	.LC4(%rip), %rdi
 	movl	$0, %eax
 	call	printf@PLT
-	.loc 3 94 2
+	.loc 3 113 2
 	leaq	-64(%rbp), %rdx
 	movq	-16(%rbp), %rax
 	movl	$17301505, %esi
 	movq	%rax, %rdi
 	call	arv_camera_set_pixel_format@PLT
-	.loc 3 95 2
+	.loc 3 114 2
 	leaq	-64(%rbp), %rcx
-	movq	.LC6(%rip), %rdx
+	movq	.LC5(%rip), %rdx
 	movq	-16(%rbp), %rax
 	movq	%rcx, %rsi
 	movq	%rdx, %xmm0
 	movq	%rax, %rdi
 	call	arv_camera_set_frame_rate@PLT
-	.loc 3 96 2
+	.loc 3 115 2
 	leaq	-64(%rbp), %rdx
 	movq	-16(%rbp), %rax
 	movq	%rdx, %r9
@@ -397,29 +519,29 @@ ACQ_Init_stream:
 	movl	$570, %esi
 	movq	%rax, %rdi
 	call	arv_camera_set_region@PLT
-	.loc 3 97 2
+	.loc 3 116 2
 	leaq	-64(%rbp), %rcx
-	movq	.LC7(%rip), %rdx
+	movq	.LC6(%rip), %rdx
 	movq	-16(%rbp), %rax
 	movq	%rcx, %rsi
 	movq	%rdx, %xmm0
 	movq	%rax, %rdi
 	call	arv_camera_set_exposure_time@PLT
-	.loc 3 98 2
+	.loc 3 117 2
 	leaq	-64(%rbp), %rdx
 	movq	-16(%rbp), %rax
 	movl	$0, %esi
 	movq	%rax, %rdi
 	call	arv_camera_set_acquisition_mode@PLT
-	.loc 3 104 23
+	.loc 3 123 23
 	movl	$0, %esi
 	movl	$0, %edi
 	call	g_main_loop_new@PLT
-	.loc 3 104 21
+	.loc 3 123 21
 	movq	%rax, -96(%rbp)
-	.loc 3 105 19
+	.loc 3 124 19
 	movl	$0, -88(%rbp)
-	.loc 3 107 11
+	.loc 3 126 11
 	leaq	-64(%rbp), %rdx
 	movq	-16(%rbp), %rax
 	movq	%rdx, %rcx
@@ -427,25 +549,25 @@ ACQ_Init_stream:
 	movl	$0, %esi
 	movq	%rax, %rdi
 	call	arv_camera_create_stream@PLT
-	.loc 3 107 9
+	.loc 3 126 9
 	movq	%rax, -72(%rbp)
-	.loc 3 108 6
+	.loc 3 127 6
 	movq	-72(%rbp), %rax
 	movq	%rax, %rdi
 	call	ARV_IS_STREAM
-	.loc 3 108 4
+	.loc 3 127 4
 	testl	%eax, %eax
-	jne	.L23
-	.loc 3 109 30
+	jne	.L27
+	.loc 3 128 30
 	movq	-64(%rbp), %rax
-	.loc 3 109 3
+	.loc 3 128 3
 	movq	8(%rax), %rax
 	movq	%rax, %rsi
-	leaq	.LC4(%rip), %rdi
+	leaq	.LC3(%rip), %rdi
 	movl	$0, %eax
 	call	printf@PLT
 .LBB4:
-	.loc 3 110 3
+	.loc 3 129 3
 	leaq	-72(%rbp), %rax
 	movq	%rax, -48(%rbp)
 	movq	-48(%rbp), %rax
@@ -454,37 +576,37 @@ ACQ_Init_stream:
 	movq	-48(%rbp), %rax
 	movq	$0, (%rax)
 	cmpq	$0, -56(%rbp)
-	je	.L24
-	.loc 3 110 3 is_stmt 0 discriminator 1
+	je	.L28
+	.loc 3 129 3 is_stmt 0 discriminator 1
 	movq	-56(%rbp), %rax
 	movq	%rax, %rdi
 	call	g_object_unref@PLT
-.L24:
+.L28:
 .LBE4:
-	.loc 3 111 10 is_stmt 1
+	.loc 3 130 10 is_stmt 1
 	movl	$1, %eax
-	jmp	.L32
-.L23:
-	.loc 3 115 12
+	jmp	.L36
+.L27:
+	.loc 3 134 12
 	leaq	-64(%rbp), %rdx
 	movq	-16(%rbp), %rax
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	arv_camera_get_payload@PLT
-	.loc 3 115 10
+	.loc 3 134 10
 	movl	%eax, %eax
 	movq	%rax, -24(%rbp)
-	.loc 3 116 12
+	.loc 3 135 12
 	movq	-64(%rbp), %rax
-	.loc 3 116 5
+	.loc 3 135 5
 	testq	%rax, %rax
-	jne	.L25
-	.loc 3 117 10
+	jne	.L29
+	.loc 3 136 10
 	movl	$0, -4(%rbp)
-	.loc 3 117 3
-	jmp	.L26
-.L27:
-	.loc 3 118 4 discriminator 3
+	.loc 3 136 3
+	jmp	.L30
+.L31:
+	.loc 3 137 4 discriminator 3
 	movq	-24(%rbp), %rax
 	movl	$0, %esi
 	movq	%rax, %rdi
@@ -494,69 +616,69 @@ ACQ_Init_stream:
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	arv_stream_push_buffer@PLT
-	.loc 3 117 23 discriminator 3
+	.loc 3 136 23 discriminator 3
 	addl	$1, -4(%rbp)
-.L26:
-	.loc 3 117 3 discriminator 1
+.L30:
+	.loc 3 136 3 discriminator 1
 	cmpl	$4, -4(%rbp)
-	jle	.L27
-.L25:
-	.loc 3 121 2
+	jle	.L31
+.L29:
+	.loc 3 140 2
 	movq	-72(%rbp), %rax
 	leaq	-96(%rbp), %rdx
 	movl	$0, %r9d
 	movl	$0, %r8d
 	movq	%rdx, %rcx
 	leaq	ACQ_NewFrame_CB(%rip), %rdx
-	leaq	.LC8(%rip), %rsi
+	leaq	.LC7(%rip), %rsi
 	movq	%rax, %rdi
 	call	g_signal_connect_data@PLT
-	.loc 3 122 2
+	.loc 3 141 2
 	movq	-72(%rbp), %rax
 	movl	$1, %esi
 	movq	%rax, %rdi
 	call	arv_stream_set_emit_signals@PLT
-	.loc 3 124 11
+	.loc 3 143 11
 	movq	-64(%rbp), %rax
-	.loc 3 124 4
+	.loc 3 143 4
 	testq	%rax, %rax
-	jne	.L28
-	.loc 3 125 3
+	jne	.L32
+	.loc 3 144 3
 	leaq	-64(%rbp), %rdx
 	movq	-16(%rbp), %rax
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	arv_camera_start_acquisition@PLT
-.L28:
-	.loc 3 127 11
+.L32:
+	.loc 3 146 11
 	movq	-64(%rbp), %rax
-	.loc 3 127 4
+	.loc 3 146 4
 	testq	%rax, %rax
-	jne	.L29
-	.loc 3 128 3
+	jne	.L33
+	.loc 3 147 3
 	movq	-96(%rbp), %rax
 	movq	%rax, %rdi
 	call	g_main_loop_run@PLT
-.L29:
-	.loc 3 130 11
+.L33:
+	.loc 3 149 11
 	movq	-64(%rbp), %rax
-	.loc 3 130 4
+	.loc 3 149 4
 	testq	%rax, %rax
-	jne	.L30
-	.loc 3 131 3
+	jne	.L34
+	.loc 3 150 3
 	leaq	-64(%rbp), %rdx
 	movq	-16(%rbp), %rax
 	movq	%rdx, %rsi
 	movq	%rax, %rdi
 	call	arv_camera_stop_acquisition@PLT
-.L30:
-	.loc 3 133 2
+.L34:
+	.loc 3 152 2
 	movq	-72(%rbp), %rax
 	movl	$0, %esi
 	movq	%rax, %rdi
 	call	arv_stream_set_emit_signals@PLT
 .LBB5:
-	.loc 3 136 2
+	.loc 3 155 2
 	leaq	-72(%rbp), %rax
 	movq	%rax, -32(%rbp)
 	movq	-32(%rbp), %rax
@@ -565,17 +687,17 @@ ACQ_Init_stream:
 	movq	-32(%rbp), %rax
 	movq	$0, (%rax)
 	cmpq	$0, -40(%rbp)
-	je	.L31
-	.loc 3 136 2 is_stmt 0 discriminator 1
+	je	.L35
+	.loc 3 155 2 is_stmt 0 discriminator 1
 	movq	-40(%rbp), %rax
 	movq	%rax, %rdi
 	call	g_object_unref@PLT
-.L31:
+.L35:
 .LBE5:
-	.loc 3 138 9 is_stmt 1
+	.loc 3 157 9 is_stmt 1
 	movl	$0, %eax
-.L32:
-	.loc 3 139 1 discriminator 1
+.L36:
+	.loc 3 158 1 discriminator 1
 	leave
 	.cfi_def_cfa 7, 8
 	ret
@@ -584,11 +706,11 @@ ACQ_Init_stream:
 	.size	ACQ_Init_stream, .-ACQ_Init_stream
 	.section	.rodata
 	.align 8
-.LC6:
+.LC5:
 	.long	0
 	.long	1076101120
 	.align 8
-.LC7:
+.LC6:
 	.long	0
 	.long	1089293312
 	.text
@@ -612,7 +734,7 @@ ACQ_Init_stream:
 	.file 20 "/usr/include/x86_64-linux-gnu/bits/types/FILE.h"
 	.section	.debug_info,"",@progbits
 .Ldebug_info0:
-	.long	0x876
+	.long	0x8fa
 	.value	0x4
 	.long	.Ldebug_abbrev0
 	.byte	0x8
@@ -703,6 +825,8 @@ ACQ_Init_stream:
 	.byte	0x1
 	.byte	0x6
 	.long	.LASF14
+	.uleb128 0x7
+	.long	0xb7
 	.uleb128 0x3
 	.long	.LASF15
 	.byte	0x7
@@ -720,15 +844,15 @@ ACQ_Init_stream:
 	.byte	0x7
 	.byte	0x32
 	.byte	0x10
-	.long	0xca
+	.long	0xcf
 	.uleb128 0x3
 	.long	.LASF18
 	.byte	0x7
 	.byte	0x37
 	.byte	0x19
 	.long	0x84
-	.uleb128 0x7
-	.long	0xe2
+	.uleb128 0x8
+	.long	0xe7
 	.uleb128 0x2
 	.byte	0x4
 	.byte	0x4
@@ -745,7 +869,7 @@ ACQ_Init_stream:
 	.long	0xaf
 	.uleb128 0x6
 	.byte	0x8
-	.long	0xbe
+	.long	0xc3
 	.uleb128 0x3
 	.long	.LASF22
 	.byte	0x8
@@ -757,48 +881,48 @@ ACQ_Init_stream:
 	.byte	0x9
 	.byte	0x29
 	.byte	0x18
-	.long	0x12b
-	.uleb128 0x8
+	.long	0x130
+	.uleb128 0x9
 	.long	.LASF34
 	.byte	0x10
 	.byte	0x9
 	.byte	0x2b
 	.byte	0x8
-	.long	0x160
-	.uleb128 0x9
+	.long	0x165
+	.uleb128 0xa
 	.long	.LASF24
 	.byte	0x9
 	.byte	0x2d
 	.byte	0x10
-	.long	0x113
+	.long	0x118
 	.byte	0
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF25
 	.byte	0x9
 	.byte	0x2e
 	.byte	0x10
-	.long	0xca
+	.long	0xcf
 	.byte	0x4
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF26
 	.byte	0x9
 	.byte	0x2f
 	.byte	0x10
-	.long	0x10d
+	.long	0x112
 	.byte	0x8
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x166
-	.uleb128 0xa
+	.long	0x16b
+	.uleb128 0xb
 	.uleb128 0x2
 	.byte	0x8
 	.byte	0x7
 	.long	.LASF27
-	.uleb128 0xb
-	.long	0xb7
-	.long	0x17e
 	.uleb128 0xc
+	.long	0xb7
+	.long	0x183
+	.uleb128 0xd
 	.long	0x40
 	.byte	0x1f
 	.byte	0
@@ -807,98 +931,98 @@ ACQ_Init_stream:
 	.byte	0xa
 	.byte	0x24
 	.byte	0x21
-	.long	0x18a
-	.uleb128 0xd
+	.long	0x18f
+	.uleb128 0xe
 	.long	.LASF30
 	.uleb128 0x3
 	.long	.LASF29
 	.byte	0xb
 	.byte	0x38
 	.byte	0x29
-	.long	0x19b
-	.uleb128 0xd
+	.long	0x1a0
+	.uleb128 0xe
 	.long	.LASF31
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x11f
+	.long	0x124
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x17e
+	.long	0x183
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x18f
-	.uleb128 0xe
+	.long	0x194
+	.uleb128 0xf
 	.long	.LASF32
 	.byte	0xc
 	.value	0x180
 	.byte	0x29
 	.long	0x8b
-	.uleb128 0xe
+	.uleb128 0xf
 	.long	.LASF33
 	.byte	0xc
 	.value	0x187
 	.byte	0x29
-	.long	0x1cc
-	.uleb128 0xf
+	.long	0x1d1
+	.uleb128 0x10
 	.long	.LASF35
 	.byte	0x8
 	.byte	0xc
 	.value	0x198
 	.byte	0x8
-	.long	0x1e9
-	.uleb128 0x10
+	.long	0x1ee
+	.uleb128 0x11
 	.long	.LASF36
 	.byte	0xc
 	.value	0x19b
 	.byte	0x9
-	.long	0x1b2
+	.long	0x1b7
 	.byte	0
 	.byte	0
-	.uleb128 0xe
+	.uleb128 0xf
 	.long	.LASF37
 	.byte	0xc
 	.value	0x189
 	.byte	0x29
-	.long	0x1f6
-	.uleb128 0xf
+	.long	0x1fb
+	.uleb128 0x10
 	.long	.LASF38
 	.byte	0x8
 	.byte	0xc
 	.value	0x1a2
 	.byte	0x8
-	.long	0x213
-	.uleb128 0x10
+	.long	0x218
+	.uleb128 0x11
 	.long	.LASF39
 	.byte	0xc
 	.value	0x1a5
 	.byte	0xf
-	.long	0x213
+	.long	0x218
 	.byte	0
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x1bf
+	.long	0x1c4
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x1e9
+	.long	0x1ee
 	.uleb128 0x3
 	.long	.LASF40
 	.byte	0xd
 	.byte	0x56
 	.byte	0x11
-	.long	0x160
-	.uleb128 0x11
+	.long	0x165
+	.uleb128 0x12
 	.byte	0x7
 	.byte	0x4
 	.long	0x84
 	.byte	0xe
 	.byte	0x9c
 	.byte	0x1
-	.long	0x246
-	.uleb128 0x12
+	.long	0x24b
+	.uleb128 0x13
 	.long	.LASF41
 	.byte	0x1
-	.uleb128 0x12
+	.uleb128 0x13
 	.long	.LASF42
 	.byte	0x2
 	.byte	0
@@ -907,57 +1031,57 @@ ACQ_Init_stream:
 	.byte	0xe
 	.byte	0x9f
 	.byte	0x3
-	.long	0x22b
+	.long	0x230
 	.uleb128 0x3
 	.long	.LASF44
 	.byte	0xf
 	.byte	0xbb
 	.byte	0x2a
-	.long	0x25e
-	.uleb128 0x8
+	.long	0x263
+	.uleb128 0x9
 	.long	.LASF45
 	.byte	0x18
 	.byte	0xf
 	.byte	0xf5
 	.byte	0x9
-	.long	0x293
-	.uleb128 0x9
+	.long	0x298
+	.uleb128 0xa
 	.long	.LASF46
 	.byte	0xf
 	.byte	0xf7
 	.byte	0x12
-	.long	0x1e9
+	.long	0x1ee
 	.byte	0
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF47
 	.byte	0xf
 	.byte	0xfa
 	.byte	0x12
-	.long	0xee
+	.long	0xf3
 	.byte	0x8
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF48
 	.byte	0xf
 	.byte	0xfb
 	.byte	0x12
-	.long	0x1a6
+	.long	0x1ab
 	.byte	0x10
 	.byte	0
-	.uleb128 0x11
+	.uleb128 0x12
 	.byte	0x7
 	.byte	0x4
 	.long	0x84
 	.byte	0x10
 	.byte	0x39
 	.byte	0xe
-	.long	0x2b4
-	.uleb128 0x12
+	.long	0x2b9
+	.uleb128 0x13
 	.long	.LASF49
 	.byte	0
-	.uleb128 0x12
+	.uleb128 0x13
 	.long	.LASF50
 	.byte	0x1
-	.uleb128 0x12
+	.uleb128 0x13
 	.long	.LASF51
 	.byte	0x2
 	.byte	0
@@ -972,20 +1096,20 @@ ACQ_Init_stream:
 	.byte	0x11
 	.byte	0x23
 	.byte	0x1d
-	.long	0x2cc
-	.uleb128 0x8
+	.long	0x2d1
+	.uleb128 0x9
 	.long	.LASF54
 	.byte	0x18
 	.byte	0x2
 	.byte	0x26
 	.byte	0x1
-	.long	0x2e7
-	.uleb128 0x9
+	.long	0x2ec
+	.uleb128 0xa
 	.long	.LASF55
 	.byte	0x2
 	.byte	0x26
 	.byte	0x1
-	.long	0x252
+	.long	0x257
 	.byte	0
 	.byte	0
 	.uleb128 0x3
@@ -993,20 +1117,20 @@ ACQ_Init_stream:
 	.byte	0x11
 	.byte	0x51
 	.byte	0x1d
-	.long	0x2f3
-	.uleb128 0x8
+	.long	0x2f8
+	.uleb128 0x9
 	.long	.LASF57
 	.byte	0x18
 	.byte	0x1
 	.byte	0x34
 	.byte	0x1
-	.long	0x30e
-	.uleb128 0x9
+	.long	0x313
+	.uleb128 0xa
 	.long	.LASF55
 	.byte	0x1
 	.byte	0x34
 	.byte	0x1
-	.long	0x252
+	.long	0x257
 	.byte	0
 	.byte	0
 	.uleb128 0x3
@@ -1014,227 +1138,227 @@ ACQ_Init_stream:
 	.byte	0x12
 	.byte	0x59
 	.byte	0x1
-	.long	0x31a
-	.uleb128 0xd
+	.long	0x31f
+	.uleb128 0xe
 	.long	.LASF59
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x30e
+	.long	0x313
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x2e7
+	.long	0x2ec
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x2c0
-	.uleb128 0x8
+	.long	0x2c5
+	.uleb128 0x9
 	.long	.LASF60
 	.byte	0xd8
 	.byte	0x13
 	.byte	0x31
 	.byte	0x8
-	.long	0x4b8
-	.uleb128 0x9
+	.long	0x4bd
+	.uleb128 0xa
 	.long	.LASF61
 	.byte	0x13
 	.byte	0x33
 	.byte	0x7
 	.long	0x47
 	.byte	0
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF62
 	.byte	0x13
 	.byte	0x36
 	.byte	0x9
 	.long	0xb1
 	.byte	0x8
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF63
 	.byte	0x13
 	.byte	0x37
 	.byte	0x9
 	.long	0xb1
 	.byte	0x10
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF64
 	.byte	0x13
 	.byte	0x38
 	.byte	0x9
 	.long	0xb1
 	.byte	0x18
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF65
 	.byte	0x13
 	.byte	0x39
 	.byte	0x9
 	.long	0xb1
 	.byte	0x20
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF66
 	.byte	0x13
 	.byte	0x3a
 	.byte	0x9
 	.long	0xb1
 	.byte	0x28
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF67
 	.byte	0x13
 	.byte	0x3b
 	.byte	0x9
 	.long	0xb1
 	.byte	0x30
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF68
 	.byte	0x13
 	.byte	0x3c
 	.byte	0x9
 	.long	0xb1
 	.byte	0x38
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF69
 	.byte	0x13
 	.byte	0x3d
 	.byte	0x9
 	.long	0xb1
 	.byte	0x40
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF70
 	.byte	0x13
 	.byte	0x40
 	.byte	0x9
 	.long	0xb1
 	.byte	0x48
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF71
 	.byte	0x13
 	.byte	0x41
 	.byte	0x9
 	.long	0xb1
 	.byte	0x50
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF72
 	.byte	0x13
 	.byte	0x42
 	.byte	0x9
 	.long	0xb1
 	.byte	0x58
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF73
 	.byte	0x13
 	.byte	0x44
 	.byte	0x16
-	.long	0x4d1
+	.long	0x4d6
 	.byte	0x60
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF74
 	.byte	0x13
 	.byte	0x46
 	.byte	0x14
-	.long	0x4d7
+	.long	0x4dc
 	.byte	0x68
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF75
 	.byte	0x13
 	.byte	0x48
 	.byte	0x7
 	.long	0x47
 	.byte	0x70
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF76
 	.byte	0x13
 	.byte	0x49
 	.byte	0x7
 	.long	0x47
 	.byte	0x74
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF77
 	.byte	0x13
 	.byte	0x4a
 	.byte	0xb
 	.long	0x97
 	.byte	0x78
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF78
 	.byte	0x13
 	.byte	0x4d
 	.byte	0x12
 	.long	0x71
 	.byte	0x80
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF79
 	.byte	0x13
 	.byte	0x4e
 	.byte	0xf
 	.long	0x5c
 	.byte	0x82
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF80
 	.byte	0x13
 	.byte	0x4f
 	.byte	0x8
-	.long	0x4dd
+	.long	0x4e2
 	.byte	0x83
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF81
 	.byte	0x13
 	.byte	0x51
 	.byte	0xf
-	.long	0x4ed
+	.long	0x4f2
 	.byte	0x88
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF82
 	.byte	0x13
 	.byte	0x59
 	.byte	0xd
 	.long	0xa3
 	.byte	0x90
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF83
 	.byte	0x13
 	.byte	0x5b
 	.byte	0x17
-	.long	0x4f8
+	.long	0x4fd
 	.byte	0x98
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF84
 	.byte	0x13
 	.byte	0x5c
 	.byte	0x19
-	.long	0x503
+	.long	0x508
 	.byte	0xa0
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF85
 	.byte	0x13
 	.byte	0x5d
 	.byte	0x14
-	.long	0x4d7
+	.long	0x4dc
 	.byte	0xa8
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF86
 	.byte	0x13
 	.byte	0x5e
 	.byte	0x9
 	.long	0xaf
 	.byte	0xb0
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF87
 	.byte	0x13
 	.byte	0x5f
 	.byte	0xa
 	.long	0x34
 	.byte	0xb8
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF88
 	.byte	0x13
 	.byte	0x60
 	.byte	0x7
 	.long	0x47
 	.byte	0xc0
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF89
 	.byte	0x13
 	.byte	0x62
 	.byte	0x8
-	.long	0x509
+	.long	0x50e
 	.byte	0xc4
 	.byte	0
 	.uleb128 0x3
@@ -1242,64 +1366,64 @@ ACQ_Init_stream:
 	.byte	0x14
 	.byte	0x7
 	.byte	0x19
-	.long	0x331
-	.uleb128 0x13
+	.long	0x336
+	.uleb128 0x14
 	.long	.LASF122
 	.byte	0x13
 	.byte	0x2b
 	.byte	0xe
-	.uleb128 0xd
+	.uleb128 0xe
 	.long	.LASF91
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x4cc
+	.long	0x4d1
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x331
-	.uleb128 0xb
-	.long	0xb7
-	.long	0x4ed
+	.long	0x336
 	.uleb128 0xc
+	.long	0xb7
+	.long	0x4f2
+	.uleb128 0xd
 	.long	0x40
 	.byte	0
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x4c4
-	.uleb128 0xd
+	.long	0x4c9
+	.uleb128 0xe
 	.long	.LASF92
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x4f3
-	.uleb128 0xd
+	.long	0x4f8
+	.uleb128 0xe
 	.long	.LASF93
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x4fe
-	.uleb128 0xb
-	.long	0xb7
-	.long	0x519
+	.long	0x503
 	.uleb128 0xc
+	.long	0xb7
+	.long	0x51e
+	.uleb128 0xd
 	.long	0x40
 	.byte	0x13
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x4b8
-	.uleb128 0x14
+	.long	0x4bd
+	.uleb128 0x15
 	.byte	0x10
 	.byte	0x3
 	.byte	0xb
 	.byte	0x9
-	.long	0x543
-	.uleb128 0x9
+	.long	0x548
+	.uleb128 0xa
 	.long	.LASF94
 	.byte	0x3
 	.byte	0xc
 	.byte	0xd
-	.long	0x1ac
+	.long	0x1b1
 	.byte	0
-	.uleb128 0x9
+	.uleb128 0xa
 	.long	.LASF95
 	.byte	0x3
 	.byte	0xd
@@ -1312,113 +1436,113 @@ ACQ_Init_stream:
 	.byte	0x3
 	.byte	0xe
 	.byte	0x3
-	.long	0x51f
-	.uleb128 0x15
+	.long	0x524
+	.uleb128 0x16
 	.long	.LASF123
 	.byte	0x3
-	.byte	0x4e
+	.byte	0x61
 	.byte	0x5
 	.long	0x47
 	.quad	.LFB1827
 	.quad	.LFE1827-.LFB1827
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x632
-	.uleb128 0x16
+	.long	0x637
+	.uleb128 0x17
 	.long	.LASF97
 	.byte	0x3
-	.byte	0x50
+	.byte	0x63
 	.byte	0xa
-	.long	0x1a0
+	.long	0x1a5
 	.uleb128 0x3
 	.byte	0x91
 	.sleb128 -80
-	.uleb128 0x16
+	.uleb128 0x17
 	.long	.LASF98
 	.byte	0x3
-	.byte	0x51
+	.byte	0x64
 	.byte	0xd
-	.long	0x32b
+	.long	0x330
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -32
-	.uleb128 0x16
+	.uleb128 0x17
 	.long	.LASF99
 	.byte	0x3
-	.byte	0x52
+	.byte	0x65
 	.byte	0xd
-	.long	0x325
+	.long	0x32a
 	.uleb128 0x3
 	.byte	0x91
 	.sleb128 -88
-	.uleb128 0x17
+	.uleb128 0x18
 	.string	"i"
 	.byte	0x3
-	.byte	0x65
+	.byte	0x78
 	.byte	0x6
 	.long	0x47
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
-	.uleb128 0x16
+	.uleb128 0x17
 	.long	.LASF100
 	.byte	0x3
-	.byte	0x66
+	.byte	0x79
 	.byte	0x9
 	.long	0x34
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -40
-	.uleb128 0x16
+	.uleb128 0x17
 	.long	.LASF101
 	.byte	0x3
-	.byte	0x67
+	.byte	0x7a
 	.byte	0xb
-	.long	0x543
+	.long	0x548
 	.uleb128 0x3
 	.byte	0x91
 	.sleb128 -112
-	.uleb128 0x18
+	.uleb128 0x19
 	.quad	.LBB4
 	.quad	.LBE4-.LBB4
-	.long	0x601
-	.uleb128 0x17
+	.long	0x606
+	.uleb128 0x18
 	.string	"_pp"
 	.byte	0x3
-	.byte	0x6e
+	.byte	0x81
 	.byte	0x3
-	.long	0x632
+	.long	0x637
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -64
-	.uleb128 0x16
+	.uleb128 0x17
 	.long	.LASF102
 	.byte	0x3
-	.byte	0x6e
+	.byte	0x81
 	.byte	0x3
-	.long	0x325
+	.long	0x32a
 	.uleb128 0x3
 	.byte	0x91
 	.sleb128 -72
 	.byte	0
-	.uleb128 0x19
+	.uleb128 0x1a
 	.quad	.LBB5
 	.quad	.LBE5-.LBB5
-	.uleb128 0x17
+	.uleb128 0x18
 	.string	"_pp"
 	.byte	0x3
-	.byte	0x88
+	.byte	0x9b
 	.byte	0x2
-	.long	0x632
+	.long	0x637
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -48
-	.uleb128 0x16
+	.uleb128 0x17
 	.long	.LASF102
 	.byte	0x3
-	.byte	0x88
+	.byte	0x9b
 	.byte	0x2
-	.long	0x325
+	.long	0x32a
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -56
@@ -1426,285 +1550,357 @@ ACQ_Init_stream:
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x325
-	.uleb128 0x1a
+	.long	0x32a
+	.uleb128 0x1b
 	.long	.LASF117
 	.byte	0x3
-	.byte	0x27
+	.byte	0x39
 	.byte	0xd
 	.quad	.LFB1826
 	.quad	.LFE1826-.LFB1826
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x6e5
-	.uleb128 0x1b
+	.long	0x6ea
+	.uleb128 0x1c
 	.long	.LASF99
 	.byte	0x3
-	.byte	0x27
+	.byte	0x39
 	.byte	0x29
-	.long	0x325
+	.long	0x32a
 	.uleb128 0x4
 	.byte	0x91
-	.sleb128 -15752
-	.uleb128 0x1b
+	.sleb128 -15880
+	.uleb128 0x1c
 	.long	.LASF103
 	.byte	0x3
-	.byte	0x27
+	.byte	0x39
 	.byte	0x37
 	.long	0xaf
 	.uleb128 0x4
 	.byte	0x91
-	.sleb128 -15760
-	.uleb128 0x16
+	.sleb128 -15888
+	.uleb128 0x17
 	.long	.LASF104
 	.byte	0x3
-	.byte	0x29
+	.byte	0x3b
 	.byte	0xd
-	.long	0x31f
+	.long	0x324
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -48
-	.uleb128 0x16
+	.uleb128 0x17
 	.long	.LASF105
 	.byte	0x3
-	.byte	0x2a
+	.byte	0x3c
 	.byte	0x8
 	.long	0xb1
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -56
-	.uleb128 0x16
+	.uleb128 0x17
 	.long	.LASF106
 	.byte	0x3
-	.byte	0x2b
-	.byte	0x6
-	.long	0x47
+	.byte	0x3d
+	.byte	0x9
+	.long	0x34
 	.uleb128 0x3
 	.byte	0x91
-	.sleb128 -68
-	.uleb128 0x16
+	.sleb128 -72
+	.uleb128 0x17
 	.long	.LASF101
 	.byte	0x3
-	.byte	0x2c
+	.byte	0x3e
 	.byte	0xc
-	.long	0x6e5
+	.long	0x6ea
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -40
-	.uleb128 0x17
+	.uleb128 0x18
 	.string	"fp"
 	.byte	0x3
-	.byte	0x2d
+	.byte	0x3f
 	.byte	0x8
-	.long	0x519
+	.long	0x51e
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -64
-	.uleb128 0x16
+	.uleb128 0x17
 	.long	.LASF107
 	.byte	0x3
-	.byte	0x2e
+	.byte	0x40
 	.byte	0x7
-	.long	0x16e
+	.long	0x173
 	.uleb128 0x3
 	.byte	0x91
 	.sleb128 -112
-	.uleb128 0x16
+	.uleb128 0x17
 	.long	.LASF108
 	.byte	0x3
-	.byte	0x2f
+	.byte	0x41
 	.byte	0x7
-	.long	0x6eb
+	.long	0x6f0
 	.uleb128 0x4
 	.byte	0x91
-	.sleb128 -15744
+	.sleb128 -15872
 	.byte	0
 	.uleb128 0x6
 	.byte	0x8
-	.long	0x543
-	.uleb128 0xb
+	.long	0x548
+	.uleb128 0xc
 	.long	0xb7
-	.long	0x6fc
-	.uleb128 0x1c
-	.long	0x40
-	.value	0x3d08
-	.byte	0
+	.long	0x701
 	.uleb128 0x1d
-	.long	.LASF111
+	.long	0x40
+	.value	0x3d85
+	.byte	0
+	.uleb128 0x1e
+	.long	.LASF112
 	.byte	0x3
-	.byte	0x17
+	.byte	0x22
 	.byte	0xc
 	.long	0x47
 	.quad	.LFB1825
 	.quad	.LFE1825-.LFB1825
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x75a
-	.uleb128 0x1b
+	.long	0x77b
+	.uleb128 0x1c
 	.long	.LASF109
 	.byte	0x3
-	.byte	0x17
-	.byte	0x24
+	.byte	0x22
+	.byte	0x29
 	.long	0xb1
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -56
-	.uleb128 0x1b
+	.uleb128 0x1c
 	.long	.LASF110
 	.byte	0x3
-	.byte	0x17
-	.byte	0x36
+	.byte	0x22
+	.byte	0x3b
 	.long	0xb1
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -64
-	.uleb128 0x1e
+	.uleb128 0x1f
 	.string	"len"
 	.byte	0x3
-	.byte	0x17
-	.byte	0x45
+	.byte	0x22
+	.byte	0x4a
 	.long	0x47
 	.uleb128 0x3
 	.byte	0x91
 	.sleb128 -68
-	.uleb128 0x17
+	.uleb128 0x18
 	.string	"i"
 	.byte	0x3
-	.byte	0x19
+	.byte	0x24
 	.byte	0x6
 	.long	0x47
 	.uleb128 0x2
 	.byte	0x91
-	.sleb128 -36
+	.sleb128 -20
+	.uleb128 0x18
+	.string	"j"
+	.byte	0x3
+	.byte	0x25
+	.byte	0x6
+	.long	0x47
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 -24
+	.uleb128 0x17
+	.long	.LASF111
+	.byte	0x3
+	.byte	0x26
+	.byte	0xd
+	.long	0x78b
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 -33
 	.byte	0
-	.uleb128 0x1d
-	.long	.LASF112
+	.uleb128 0xc
+	.long	0xbe
+	.long	0x78b
+	.uleb128 0xd
+	.long	0x40
+	.byte	0x8
+	.byte	0
+	.uleb128 0x7
+	.long	0x77b
+	.uleb128 0x1e
+	.long	.LASF113
 	.byte	0x3
 	.byte	0x10
-	.byte	0xd
-	.long	0xb7
+	.byte	0x26
+	.long	0x47
 	.quad	.LFB1824
 	.quad	.LFE1824-.LFB1824
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x79b
-	.uleb128 0x1b
-	.long	.LASF113
+	.long	0x80a
+	.uleb128 0x1c
+	.long	.LASF109
 	.byte	0x3
 	.byte	0x10
-	.byte	0x1e
-	.long	0xb7
+	.byte	0x3e
+	.long	0xb1
 	.uleb128 0x2
 	.byte	0x91
-	.sleb128 -36
-	.uleb128 0x16
-	.long	.LASF114
+	.sleb128 -56
+	.uleb128 0x1c
+	.long	.LASF110
+	.byte	0x3
+	.byte	0x10
+	.byte	0x50
+	.long	0xb1
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 -64
+	.uleb128 0x1f
+	.string	"len"
+	.byte	0x3
+	.byte	0x10
+	.byte	0x5f
+	.long	0x47
+	.uleb128 0x3
+	.byte	0x91
+	.sleb128 -68
+	.uleb128 0x18
+	.string	"i"
+	.byte	0x3
+	.byte	0x11
+	.byte	0x6
+	.long	0x47
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 -20
+	.uleb128 0x18
+	.string	"j"
 	.byte	0x3
 	.byte	0x12
-	.byte	0x7
-	.long	0x4dd
+	.byte	0x6
+	.long	0x47
 	.uleb128 0x2
 	.byte	0x91
-	.sleb128 -17
+	.sleb128 -24
+	.uleb128 0x17
+	.long	.LASF114
+	.byte	0x3
+	.byte	0x13
+	.byte	0xd
+	.long	0x81a
+	.uleb128 0x2
+	.byte	0x91
+	.sleb128 -48
 	.byte	0
-	.uleb128 0x1d
+	.uleb128 0xc
+	.long	0xbe
+	.long	0x81a
+	.uleb128 0xd
+	.long	0x40
+	.byte	0xf
+	.byte	0
+	.uleb128 0x7
+	.long	0x80a
+	.uleb128 0x20
 	.long	.LASF115
 	.byte	0x2
 	.byte	0x26
 	.byte	0x1
-	.long	0xd6
+	.long	0xdb
 	.quad	.LFB1138
 	.quad	.LFE1138-.LFB1138
 	.uleb128 0x1
 	.byte	0x9c
-	.long	0x80c
-	.uleb128 0x1e
+	.long	0x890
+	.uleb128 0x1f
 	.string	"ptr"
 	.byte	0x2
 	.byte	0x26
 	.byte	0x1
-	.long	0x101
+	.long	0x106
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -56
-	.uleb128 0x19
+	.uleb128 0x1a
 	.quad	.LBB3
 	.quad	.LBE3-.LBB3
-	.uleb128 0x16
+	.uleb128 0x17
 	.long	.LASF116
 	.byte	0x2
 	.byte	0x26
 	.byte	0x1
-	.long	0x219
+	.long	0x21e
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -32
-	.uleb128 0x17
+	.uleb128 0x18
 	.string	"__t"
 	.byte	0x2
 	.byte	0x26
 	.byte	0x1
-	.long	0x1b2
+	.long	0x1b7
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -40
-	.uleb128 0x17
+	.uleb128 0x18
 	.string	"__r"
 	.byte	0x2
 	.byte	0x26
 	.byte	0x1
-	.long	0xd6
+	.long	0xdb
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
 	.byte	0
 	.byte	0
-	.uleb128 0x1f
+	.uleb128 0x21
 	.long	.LASF118
 	.byte	0x1
 	.byte	0x34
 	.byte	0x1
-	.long	0xd6
+	.long	0xdb
 	.quad	.LFB352
 	.quad	.LFE352-.LFB352
 	.uleb128 0x1
 	.byte	0x9c
-	.uleb128 0x1e
+	.uleb128 0x1f
 	.string	"ptr"
 	.byte	0x1
 	.byte	0x34
 	.byte	0x1
-	.long	0x101
+	.long	0x106
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -56
-	.uleb128 0x19
+	.uleb128 0x1a
 	.quad	.LBB2
 	.quad	.LBE2-.LBB2
-	.uleb128 0x16
+	.uleb128 0x17
 	.long	.LASF116
 	.byte	0x1
 	.byte	0x34
 	.byte	0x1
-	.long	0x219
+	.long	0x21e
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -32
-	.uleb128 0x17
+	.uleb128 0x18
 	.string	"__t"
 	.byte	0x1
 	.byte	0x34
 	.byte	0x1
-	.long	0x1b2
+	.long	0x1b7
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -40
-	.uleb128 0x17
+	.uleb128 0x18
 	.string	"__r"
 	.byte	0x1
 	.byte	0x34
 	.byte	0x1
-	.long	0xd6
+	.long	0xdb
 	.uleb128 0x2
 	.byte	0x91
 	.sleb128 -20
@@ -1786,13 +1982,20 @@ ACQ_Init_stream:
 	.byte	0
 	.byte	0
 	.uleb128 0x7
-	.uleb128 0x35
+	.uleb128 0x26
 	.byte	0
 	.uleb128 0x49
 	.uleb128 0x13
 	.byte	0
 	.byte	0
 	.uleb128 0x8
+	.uleb128 0x35
+	.byte	0
+	.uleb128 0x49
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x9
 	.uleb128 0x13
 	.byte	0x1
 	.uleb128 0x3
@@ -1809,7 +2012,7 @@ ACQ_Init_stream:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x9
+	.uleb128 0xa
 	.uleb128 0xd
 	.byte	0
 	.uleb128 0x3
@@ -1826,14 +2029,14 @@ ACQ_Init_stream:
 	.uleb128 0xb
 	.byte	0
 	.byte	0
-	.uleb128 0xa
+	.uleb128 0xb
 	.uleb128 0x15
 	.byte	0
 	.uleb128 0x27
 	.uleb128 0x19
 	.byte	0
 	.byte	0
-	.uleb128 0xb
+	.uleb128 0xc
 	.uleb128 0x1
 	.byte	0x1
 	.uleb128 0x49
@@ -1842,7 +2045,7 @@ ACQ_Init_stream:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0xc
+	.uleb128 0xd
 	.uleb128 0x21
 	.byte	0
 	.uleb128 0x49
@@ -1851,7 +2054,7 @@ ACQ_Init_stream:
 	.uleb128 0xb
 	.byte	0
 	.byte	0
-	.uleb128 0xd
+	.uleb128 0xe
 	.uleb128 0x13
 	.byte	0
 	.uleb128 0x3
@@ -1860,7 +2063,7 @@ ACQ_Init_stream:
 	.uleb128 0x19
 	.byte	0
 	.byte	0
-	.uleb128 0xe
+	.uleb128 0xf
 	.uleb128 0x16
 	.byte	0
 	.uleb128 0x3
@@ -1875,7 +2078,7 @@ ACQ_Init_stream:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0xf
+	.uleb128 0x10
 	.uleb128 0x13
 	.byte	0x1
 	.uleb128 0x3
@@ -1892,7 +2095,7 @@ ACQ_Init_stream:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x10
+	.uleb128 0x11
 	.uleb128 0xd
 	.byte	0
 	.uleb128 0x3
@@ -1909,7 +2112,7 @@ ACQ_Init_stream:
 	.uleb128 0xb
 	.byte	0
 	.byte	0
-	.uleb128 0x11
+	.uleb128 0x12
 	.uleb128 0x4
 	.byte	0x1
 	.uleb128 0x3e
@@ -1928,7 +2131,7 @@ ACQ_Init_stream:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x12
+	.uleb128 0x13
 	.uleb128 0x28
 	.byte	0
 	.uleb128 0x3
@@ -1937,7 +2140,7 @@ ACQ_Init_stream:
 	.uleb128 0xb
 	.byte	0
 	.byte	0
-	.uleb128 0x13
+	.uleb128 0x14
 	.uleb128 0x16
 	.byte	0
 	.uleb128 0x3
@@ -1950,7 +2153,7 @@ ACQ_Init_stream:
 	.uleb128 0xb
 	.byte	0
 	.byte	0
-	.uleb128 0x14
+	.uleb128 0x15
 	.uleb128 0x13
 	.byte	0x1
 	.uleb128 0xb
@@ -1965,7 +2168,7 @@ ACQ_Init_stream:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x15
+	.uleb128 0x16
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3f
@@ -1994,7 +2197,7 @@ ACQ_Init_stream:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x16
+	.uleb128 0x17
 	.uleb128 0x34
 	.byte	0
 	.uleb128 0x3
@@ -2011,7 +2214,7 @@ ACQ_Init_stream:
 	.uleb128 0x18
 	.byte	0
 	.byte	0
-	.uleb128 0x17
+	.uleb128 0x18
 	.uleb128 0x34
 	.byte	0
 	.uleb128 0x3
@@ -2028,7 +2231,7 @@ ACQ_Init_stream:
 	.uleb128 0x18
 	.byte	0
 	.byte	0
-	.uleb128 0x18
+	.uleb128 0x19
 	.uleb128 0xb
 	.byte	0x1
 	.uleb128 0x11
@@ -2039,7 +2242,7 @@ ACQ_Init_stream:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x19
+	.uleb128 0x1a
 	.uleb128 0xb
 	.byte	0x1
 	.uleb128 0x11
@@ -2048,7 +2251,7 @@ ACQ_Init_stream:
 	.uleb128 0x7
 	.byte	0
 	.byte	0
-	.uleb128 0x1a
+	.uleb128 0x1b
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3
@@ -2073,7 +2276,7 @@ ACQ_Init_stream:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x1b
+	.uleb128 0x1c
 	.uleb128 0x5
 	.byte	0
 	.uleb128 0x3
@@ -2090,7 +2293,7 @@ ACQ_Init_stream:
 	.uleb128 0x18
 	.byte	0
 	.byte	0
-	.uleb128 0x1c
+	.uleb128 0x1d
 	.uleb128 0x21
 	.byte	0
 	.uleb128 0x49
@@ -2099,7 +2302,51 @@ ACQ_Init_stream:
 	.uleb128 0x5
 	.byte	0
 	.byte	0
-	.uleb128 0x1d
+	.uleb128 0x1e
+	.uleb128 0x2e
+	.byte	0x1
+	.uleb128 0x3
+	.uleb128 0xe
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x39
+	.uleb128 0xb
+	.uleb128 0x27
+	.uleb128 0x19
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x11
+	.uleb128 0x1
+	.uleb128 0x12
+	.uleb128 0x7
+	.uleb128 0x40
+	.uleb128 0x18
+	.uleb128 0x2117
+	.uleb128 0x19
+	.uleb128 0x1
+	.uleb128 0x13
+	.byte	0
+	.byte	0
+	.uleb128 0x1f
+	.uleb128 0x5
+	.byte	0
+	.uleb128 0x3
+	.uleb128 0x8
+	.uleb128 0x3a
+	.uleb128 0xb
+	.uleb128 0x3b
+	.uleb128 0xb
+	.uleb128 0x39
+	.uleb128 0xb
+	.uleb128 0x49
+	.uleb128 0x13
+	.uleb128 0x2
+	.uleb128 0x18
+	.byte	0
+	.byte	0
+	.uleb128 0x20
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3
@@ -2126,24 +2373,7 @@ ACQ_Init_stream:
 	.uleb128 0x13
 	.byte	0
 	.byte	0
-	.uleb128 0x1e
-	.uleb128 0x5
-	.byte	0
-	.uleb128 0x3
-	.uleb128 0x8
-	.uleb128 0x3a
-	.uleb128 0xb
-	.uleb128 0x3b
-	.uleb128 0xb
-	.uleb128 0x39
-	.uleb128 0xb
-	.uleb128 0x49
-	.uleb128 0x13
-	.uleb128 0x2
-	.uleb128 0x18
-	.byte	0
-	.byte	0
-	.uleb128 0x1f
+	.uleb128 0x21
 	.uleb128 0x2e
 	.byte	0x1
 	.uleb128 0x3
@@ -2260,6 +2490,8 @@ ACQ_Init_stream:
 	.string	"_old_offset"
 .LASF82:
 	.string	"_offset"
+.LASF114:
+	.string	"hexLookupTable"
 .LASF102:
 	.string	"_ptr"
 .LASF109:
@@ -2282,8 +2514,6 @@ ACQ_Init_stream:
 	.string	"_IO_write_ptr"
 .LASF116:
 	.string	"__inst"
-.LASF112:
-	.string	"U8toHexChar"
 .LASF51:
 	.string	"ARV_ACQUISITION_MODE_MULTI_FRAME"
 .LASF48:
@@ -2362,11 +2592,9 @@ ACQ_Init_stream:
 	.string	"_vtable_offset"
 .LASF90:
 	.string	"FILE"
-.LASF114:
-	.string	"hexvalue"
 .LASF44:
 	.string	"GObject"
-.LASF111:
+.LASF113:
 	.string	"ConvertToHexArray"
 .LASF121:
 	.string	"/home/user/projects/Quasar/software"
@@ -2384,8 +2612,6 @@ ACQ_Init_stream:
 	.string	"gsize"
 .LASF92:
 	.string	"_IO_codecvt"
-.LASF113:
-	.string	"rawvalue"
 .LASF47:
 	.string	"ref_count"
 .LASF9:
@@ -2400,6 +2626,8 @@ ACQ_Init_stream:
 	.string	"__pad5"
 .LASF16:
 	.string	"gint"
+.LASF111:
+	.string	"lookupTable"
 .LASF89:
 	.string	"_unused2"
 .LASF25:
@@ -2426,6 +2654,8 @@ ACQ_Init_stream:
 	.string	"_freeres_list"
 .LASF84:
 	.string	"_wide_data"
+.LASF112:
+	.string	"ConvertToAsciGreyScale"
 .LASF56:
 	.string	"ArvStream"
 .LASF65:

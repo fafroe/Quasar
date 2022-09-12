@@ -13,23 +13,41 @@ typedef struct {
 	guint32 counter;
 } ACQ_data;
 
-static char U8toHexChar(char rawvalue)
-{
-	char hexvalue[1] = {0};
-	sprintf(hexvalue, "%X", rawvalue);
-	return hexvalue[0];
-}
-
-static int ConvertToHexArray(char* destBuffer, char* srcBuffer, int len)
-{
+__attribute__((__used__)) static int ConvertToHexArray(char* destBuffer, char* srcBuffer, int len) {
 	int i = 0;
+	int j = 0;
+	const char hexLookupTable[16] = {"0123456789ABCDEF"};
 
 	while(i < len)
 	{
-		destBuffer[i] = U8toHexChar(srcBuffer[i]);
-		// if(i % 124 == 1) destBuffer[i] = '\0';
-		// if(i % 125 == 1) destBuffer[i] = '\r';
+		destBuffer[j+0] = hexLookupTable[srcBuffer[i] >> 4];
+		destBuffer[j+1] = hexLookupTable[srcBuffer[i] & 0x0F];
+		destBuffer[j+2] = ' ';
+		if(i % 125 == 1) destBuffer[j+2] = '\n';
 		i++;
+		j += 3;
+	}
+
+	return i;
+}
+
+static int ConvertToAsciGreyScale(char* destBuffer, char* srcBuffer, int len)
+{
+	int i = 0;
+	int j = 0;
+	const char lookupTable[9] = {" .-+*o0@#"};
+	//const char lookupTable[8] = {"@0o*+-. "};
+
+	while(i < len)
+	{
+		destBuffer[j] = lookupTable[srcBuffer[i]/32];
+		if(i % 125 == 1)
+		{
+			j++;
+			destBuffer[j] = '\n';
+		}
+		i++;
+		j++;
 	}
 
 	return i;
@@ -40,17 +58,17 @@ static void ACQ_NewFrame_CB (ArvStream *stream, void *user_data)
 {
 	ArvBuffer *buffer;
 	char *arvDataBuffer;
-	int arvDataBufferSize;
+	size_t arvDataBufferSize;
 	ACQ_data *app_data = user_data;
 	FILE *fp;
 	char fileName[32];
-	char image[IMAGE_SIZE];
+	char image[IMAGE_SIZE + 125]; // +125 for \n symbols
 
 	/* This code is called from the stream receiving thread, which means all the time spent there is less time
 	 * available for the reception of incoming packets */
 
 	buffer = arv_stream_pop_buffer (stream);
-	arvDataBuffer = arv_buffer_get_data(buffer, &arvDataBufferSize);
+	arvDataBuffer = (char*)arv_buffer_get_data(buffer, &arvDataBufferSize);
 
 	/* Display some informations about the retrieved buffer */
 	printf ("Acquired %d×%d buffer\n",
@@ -61,8 +79,9 @@ static void ACQ_NewFrame_CB (ArvStream *stream, void *user_data)
 	fp = fopen(fileName, "w");
 
 	//memccpy(image, buffer, 1,IMAGE_SIZE);
-	ConvertToHexArray(image, arvDataBuffer, arvDataBufferSize);
-	//fwrite(image, 1, IMAGE_SIZE, fp);
+	//ConvertToHexArray(image, arvDataBuffer, arvDataBufferSize);
+	ConvertToAsciGreyScale(image, arvDataBuffer, arvDataBufferSize);
+	fwrite(image, 1, IMAGE_SIZE, fp);
 	fclose(fp);
 
 	/* Don't destroy the buffer, but put it back into the buffer pool */
