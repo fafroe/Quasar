@@ -14,7 +14,7 @@ SRC_FOLDERS = src
 
 # Compiler und Linker Flags
 CC = gcc
-CFLAGS = -Wall -O0 -ggdb
+CFLAGS = -Wall -O0 -ggdb -Wno-unused-function
 LFLAGS = 
 INCLUDES = -Iinc -I/usr/include/aravis-0.8 -I/usr/include/glib-2.0 -I/usr/lib/x86_64-linux-gnu/glib-2.0/include
 

@@ -1,0 +1,27 @@
+#ifndef __DETECTION_H__
+#define __DETECTION_H__
+
+#include "quasarconfig.h"
+
+typedef struct {
+    double length;
+    double direction;
+} vector_2D_t;
+
+typedef struct {
+    int pos_x;
+    int pos_y;
+    unsigned char *pData;
+    double sum;
+} tile_t;
+
+typedef struct {
+    unsigned char image[QCONF_IMAGE_SIZE];
+    unsigned char writingFlag;
+    unsigned char readingFlag;
+} image_t;
+
+int DETECT_Init(void);
+int DETECT_Process(unsigned char* frameBuffer);
+
+#endif /*__DETECTION_H__*/

@@ -1,11 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "acquisition.h"
+#include "detection.h"
 
 
 int main(int argc, char *argv[])
 {
-    if(ACQ_Init_stream() == EXIT_FAILURE)
+     if(DETECT_Init() == EXIT_FAILURE)
     {
         return EXIT_FAILURE;
     }

@@ -22,6 +22,15 @@
         "arvgcintegernode.h": "c",
         "arvgcinteger.h": "c",
         "arvgcswissknifenode.h": "c",
-        "arvmisc.h": "c"
-    }
+        "arvmisc.h": "c",
+        "cstdlib": "c",
+        "detection.h": "c"
+    },
+    "cSpell.words": [
+        "DETEC",
+        "QCONF",
+        "QUASARCONFIG",
+        "RESOLU",
+        "tilebuffer"
+    ]
 }
