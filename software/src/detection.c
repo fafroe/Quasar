@@ -4,9 +4,13 @@
 #include <stdio.h>
 
 static vector_2D_t DETECT_GetDirection(int *sumBuffer);
-static double DETECT_GetSum(tile_t *tile);
-static int DETECT_GetTiles(tile_t *tiles, image_t image[]);
+static void DETECT_CalculateSums(tile_t (*tiles)[]);
+static int DETECT_GetTiles(tile_t (*tiles)[], image_t *image);
+static position_t DETECT_GetTilePosition(unsigned int index);
+static void DETECT_FillTileData(tile_t *tile, image_t *image);
 static void DETECT_CopyRawToImage(unsigned char *srcBuffer, image_t *destBuffer);
+static void DETECT_ConvertTileToASCIfile(tile_t *tile);
+static void DETECT_ConvertImageToASCIfile(image_t *image);
 
 /**
  * @brief Init the Detection Module
@@ -33,8 +37,9 @@ int DETECT_Process(unsigned char* frameBuffer)
     tile_t tiles[QCONF_DETECT_TILE_QUANTITY];
 
     DETECT_CopyRawToImage(frameBuffer, &image);
-    DETECT_GetTiles(tiles, &image);
-    DETECT_GetSum(tiles);
+    DETECT_ConvertImageToASCIfile(&image);
+    DETECT_GetTiles(&tiles, &image);
+    //DETECT_CalculateSums(&tiles);
 
     return EXIT_SUCCESS;
 }
@@ -58,58 +63,87 @@ static vector_2D_t DETECT_GetDirection(int *sumBuffer)
  * @param tile double array of tiles
  * @return sum of all pixels
  */
-static double DETECT_GetSum(tile_t *tile)
+static void DETECT_CalculateSums(tile_t (*tiles)[])
 {
     unsigned int tileCounter = 0, valueCounter = 0;
-    double tileSum = 0.0f, sum = 0.0f;
 
     while(tileCounter < QCONF_DETECT_TILE_QUANTITY)
     {
-        while(valueCounter < QCONF_IMAGE_SIZE)
+        valueCounter = 0;
+        (*tiles)[tileCounter].grayScaleSum = 0;
+        while(valueCounter < QCONF_DETECT_TILE_SIZE)
         {
-            tileSum += tile[tileCounter].pData[valueCounter];
+            (*tiles)[tileCounter].grayScaleSum += (*tiles)[tileCounter].image[valueCounter];
             valueCounter++;
         }
-        tile[tileCounter].sum = tileSum;
-        sum += tileSum;
+        printf("%f\n", (*tiles)[tileCounter].grayScaleSum );
         tileCounter++;
-
-        printf("%f\n", tileSum);
     }
     printf("\n");
-    return sum;
+}
+
+
+static int DETECT_GetTiles(tile_t (*tiles)[], image_t *image)
+{
+    unsigned int i = 0;
+    position_t tilePosition;
+
+    // while(i < QCONF_DETECT_TILE_QUANTITY)
+    while(i < 3)
+    {
+        (*tiles)[i].id = i;
+
+        tilePosition = DETECT_GetTilePosition(i);
+        (*tiles)[i].position.x = tilePosition.x;
+        (*tiles)[i].position.y = tilePosition.y;
+ 
+        DETECT_FillTileData(&(*tiles)[i], image);
+
+        i++;
+    }
+
+    return i;
+}
+
+
+/**
+ * @brief Gets the Position of a Tile in an image
+ * 
+ * @param index position in an image counting from top left (0) to top right,
+ *            second left to second right and so on
+ * @return position_t the position of the tile
+ */
+static position_t DETECT_GetTilePosition(unsigned int index)
+{
+    position_t position;
+
+    position.x = QCONF_DETECT_TILE_SIZE_X * index;
+    position.y = QCONF_DETECT_TILE_SIZE_Y * index;
+
+    return position;
 }
 
 /**
- * @brief Splits a image into multiple tiles
+ * @brief Copys the respective data from the image to the given tile
  * 
- * @param tiles double array of tiles
- * @return amount of tiles 
+ * @param tile Pointer to a tile to fill with data
+ * @param image Pointer to a image where the data is copied from
  */
-static int DETECT_GetTiles(tile_t *tiles, image_t image[])
+static void DETECT_FillTileData(tile_t *tile, image_t *image)
 {
-    const unsigned int tileSize_x = QCONF_IMAGE_FORMAT_X / QCONF_DETECT_TILE_RESOLUTION;
-    const unsigned int tileSize_y = QCONF_IMAGE_FORMAT_Y / QCONF_DETECT_TILE_RESOLUTION;
+    unsigned long imageIterator = tile->id * QCONF_DETECT_TILE_SIZE;
 
-    unsigned int x = 0, y = 1;
-    unsigned int i = 0;
-
-    while(y < QCONF_DETECT_TILE_RESOLUTION)
+    for(unsigned int tileIterator = 0; tileIterator < QCONF_DETECT_TILE_SIZE; tileIterator++)
     {
-        tiles[i].pos_y += tileSize_y * y;
-        tiles[i].pos_x += tileSize_x * x;
-        tiles[i].pData = (unsigned char *)image;
-        tiles[i].pData += i*64;
+        tile->image[tileIterator] = image->image[imageIterator];
 
-        x++;
-        if(x == QCONF_DETECT_TILE_RESOLUTION)
+        imageIterator++;
+        if(tileIterator % QCONF_DETECT_TILE_SIZE_X == 0)
         {
-            y++;
-            x = 0;
+            imageIterator += (QCONF_DETECT_TILE_RESOLUTION - 1) * QCONF_DETECT_TILE_SIZE_X;
         }
-        i++;
     }
-    return i;
+    DETECT_ConvertTileToASCIfile(tile);
 }
 
 /**
@@ -124,4 +158,49 @@ static void DETECT_CopyRawToImage(unsigned char *srcBuffer, image_t *destBuffer)
     {
         destBuffer->image[i] = srcBuffer[i];
     }
+}
+
+static int DETECT_ConvertToAsciGreyScale(char* destBuffer, unsigned char srcBuffer[], int size, int width)
+{
+	int i = 0;
+	const char lookupTable[9] = {" .-+*o0@#"};
+	//const char lookupTable[8] = {"@0o*+-. "};
+
+    do {
+        destBuffer[i] = lookupTable[srcBuffer[i]/32];
+        if(i % width == 0) destBuffer[i] = '\n';
+        i++;
+    } while(i < size);
+
+	return i;
+}
+
+static void DETECT_ConvertTileToASCIfile(tile_t *tile)
+{
+    char writeBuffer[QCONF_DETECT_TILE_SIZE];
+    FILE *fp;
+    char filename[32];
+
+    sprintf(filename, "debug/tile_%i", tile->id);
+    fp = fopen(filename, "w");
+
+    DETECT_ConvertToAsciGreyScale(writeBuffer, tile->image, QCONF_DETECT_TILE_SIZE, QCONF_DETECT_TILE_SIZE_X-1);
+    fwrite(writeBuffer, 1, QCONF_DETECT_TILE_SIZE, fp);
+
+    fclose(fp);
+}
+
+static void DETECT_ConvertImageToASCIfile(image_t *image)
+{
+    char writeBuffer[QCONF_IMAGE_SIZE];
+    FILE *fp;
+    char filename[32];
+
+    sprintf(filename, "debug/image");
+    fp = fopen(filename, "w");
+
+    DETECT_ConvertToAsciGreyScale(writeBuffer, image->image, QCONF_IMAGE_SIZE, QCONF_IMAGE_FORMAT_X-1);
+    fwrite(writeBuffer, 1, QCONF_IMAGE_SIZE, fp);
+
+    fclose(fp);
 }

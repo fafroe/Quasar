@@ -43,7 +43,7 @@ $(APP): $(OBJS) | $(DEPS) $(ASM)
 	$(CC) $(LFLAGS) $^ -o $@ -lglib-2.0 -lgobject-2.0 -laravis-0.8 
 
 $(ASM_FOLDER)/%.s: %.c
-	$(CC) $(CFLAGS) -S $< -o $@ $(INCLUDES)
+	-@$(CC) $(CFLAGS) -S $< -o $@ $(INCLUDES)
 
 $(OBJ_FOLDER)/%.o: %.c | $(DEPS)
 	$(CC) $(CFLAGS) -c $< -o $@ $(INCLUDES)

@@ -28,28 +28,6 @@ static int ConvertToHexArray(char* destBuffer, char* srcBuffer, int len) {
 	return i;
 }
 
-static int ConvertToAsciGreyScale(char* destBuffer, char* srcBuffer, int len)
-{
-	int i = 0;
-	int j = 0;
-	const char lookupTable[9] = {" .-+*o0@#"};
-	//const char lookupTable[8] = {"@0o*+-. "};
-
-	while(i < len)
-	{
-		destBuffer[j] = lookupTable[srcBuffer[i]/32];
-		if(i % 125 == 1)
-		{
-			j++;
-			destBuffer[j] = '\n';
-		}
-		i++;
-		j++;
-	}
-
-	return i;
-}
-
 static void ACQ_NewFrame_CB (ArvStream *stream, void *user_data)
 {
 	ArvBuffer *buffer;
@@ -69,7 +47,7 @@ static void ACQ_NewFrame_CB (ArvStream *stream, void *user_data)
 
 	app_data->counter++;
 
-	if (app_data->counter == 3)
+	if (app_data->counter == 1)
 		g_main_loop_quit (app_data->main_loop);
 }
 

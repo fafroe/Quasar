@@ -9,10 +9,15 @@ typedef struct {
 } vector_2D_t;
 
 typedef struct {
-    int pos_x;
-    int pos_y;
-    unsigned char *pData;
-    double sum;
+    unsigned int x;
+    unsigned int y;
+} position_t;
+
+typedef struct {
+    position_t position;
+    unsigned char image[QCONF_DETECT_TILE_SIZE];
+    double grayScaleSum;
+    unsigned int id;
 } tile_t;
 
 typedef struct {
